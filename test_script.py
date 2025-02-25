@@ -2,9 +2,9 @@ import os
 from PIL import Image
 
 file_paths = [
-    "D:\python_lab\MLPR_Lab5\Lab 5-Spring 2025.ipynb",
-    "D:\python_lab\MLPR_Lab5\Plaksha_Faculty.jpg",
-    "D:\python_lab\MLPR_Lab5\Dr_Shashi_Tharoor (1).jpg",
+    "Lab 5-Spring 2025.ipynb",
+    "Plaksha_Faculty.jpg",
+    "Dr_Shashi_Tharoor (1).jpg",
 ]
 
 
