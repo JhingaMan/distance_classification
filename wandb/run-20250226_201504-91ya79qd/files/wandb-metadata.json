@@ -1,0 +1,31 @@
+{
+  "os":  "Windows-10-10.0.22631-SP0",
+  "python":  "CPython 3.9.13",
+  "startedAt":  "2025-02-26T14:45:04.848565Z",
+  "program":  "d:\\python_lab\\MLPR_Lab5\\Lab 5-Spring 2025.ipynb",
+  "codePath":  "Lab 5-Spring 2025.ipynb",
+  "git":  {
+    "remote":  "https://github.com/JhingaMan/distance_classification.git",
+    "commit":  "b2058a2e8a0bef581d08df57f20d856cbfb9e58c"
+  },
+  "email":  "kunalgupta1208@gmail.com",
+  "root":  "d:\\python_lab\\MLPR_Lab5",
+  "host":  "LAPTOP-TCKFGKKB",
+  "executable":  "d:\\python_lab\\MLPR_Lab5\\venv\\Scripts\\python.exe",
+  "codePathLocal":  "Lab 5-Spring 2025.ipynb",
+  "cpu_count":  6,
+  "cpu_count_logical":  12,
+  "disk":  {
+    "/":  {
+      "total":  "295800139776",
+      "used":  "23944122368"
+    }
+  },
+  "memory":  {
+    "total":  "16475824128"
+  },
+  "cpu":  {
+    "count":  6,
+    "countLogical":  12
+  }
+}

@@ -27,8 +27,8 @@ jobs:
 
       - name: Download haarcascade_frontalface_default.xml
         run: |
-          mkdir -p data
-          wget -O data/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
+          mkdir -p model
+          wget -O model/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
 
       - name: Debug Secrets
         run: |
