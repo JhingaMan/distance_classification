@@ -1,0 +1,50 @@
+name: Rerun Jupyter Notebook
+
+on:
+    push:
+        paths:
+            - "**/*.ipynb"
+            - "**/*.py"
+            - ".github/workflows/jupyter_rerun.yml"
+
+jobs:
+    rerun-notebook:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: "3.9.13"
+
+            - name: Install dependencies
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install jupyter nbconvert wandb opencv-python matplotlib numpy scikit-learn python-dotenv scipy opencv-python-headless ipykernel
+
+            - name: Download haarcascade_frontalface_default.xml
+              run: |
+                  mkdir -p data
+                  wget -O data/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
+
+            - name: Configure wandb
+              env:
+                  WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+              run: |
+                  wandb login $WANDB_API_KEY
+
+            - name: Install Jupyter Kernel
+              run: |
+                  python -m ipykernel install --user --name=nbkernel
+
+            - name: Execute Jupyter Notebook
+              run: |
+                  jupyter nbconvert --to notebook --execute "lab_5.ipynb" --output executed_notebook.ipynb --ExecutePreprocessor.kernel_name=nbkernel --debug
+            - name: Log metrics and images to wandb
+              run: |
+                  python -c "import wandb
+                  wandb.init(project='distance_classification')
+                  wandb.save('executed_notebook.ipynb')"
