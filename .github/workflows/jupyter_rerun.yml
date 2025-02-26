@@ -30,6 +30,15 @@ jobs:
           mkdir -p data
           wget -O data/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
 
+      - name: Debug Secrets
+        run: |
+          if [ -z "${{ secrets.WANDB_API_KEY }}" ]; then
+            echo "WANDB_API_KEY is not set or is empty!";
+            exit 1;
+          else
+            echo "WANDB_API_KEY is set.";
+          fi
+
       - name: Configure wandb
         env:
           WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
@@ -43,6 +52,7 @@ jobs:
       - name: Execute Jupyter Notebook
         run: |
           jupyter nbconvert --to notebook --execute "Lab 5-Spring 2025.ipynb" --output executed_notebook.ipynb --ExecutePreprocessor.kernel_name=nbkernel --debug
+
       - name: Log metrics and images to wandb
         run: |
           python -c "import wandb
