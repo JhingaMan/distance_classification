@@ -1,6 +1,6 @@
 import cv2
 
-img = cv2.imread("data/Plaksha_Faculty.jpg")
+img = cv2.imread("Plaksha_Faculty.jpg")
 
 gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 

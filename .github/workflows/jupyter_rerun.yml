@@ -25,25 +25,26 @@ jobs:
           python -m pip install --upgrade pip
           pip install jupyter nbconvert wandb opencv-python matplotlib numpy scikit-learn python-dotenv scipy opencv-python-headless ipykernel
 
-      - name: Download model/haarcascade_frontalface_default.xml
+      - name: Download haarcascade_frontalface_default.xml
         run: |
-          mkdir -p images
-          wget -O images/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
+          mkdir -p data
+          wget -O data/haarcascade_frontalface_default.xml https://github.com/opencv/opencv/raw/master/data/haarcascades/haarcascade_frontalface_default.xml
+
+      - name: Configure wandb
+        env:
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+        run: |
+          wandb login $WANDB_API_KEY
+
+      - name: Install Jupyter Kernel
+        run: |
+          python -m ipykernel install --user --name=nbkernel
 
       - name: Execute Jupyter Notebook
-        env:
-          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
         run: |
-          jupyter nbconvert --to notebook --execute "Lab 5-Spring 2025.ipynb" --output "output_notebook.ipynb" --ExecutePreprocessor.kernel_name=python3 --debug
-
+          jupyter nbconvert --to notebook --execute "Lab 5-Spring 2025.ipynb" --output executed_notebook.ipynb --ExecutePreprocessor.kernel_name=nbkernel --debug
       - name: Log metrics and images to wandb
-        env:
-          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
         run: |
-          python -c "
-          import os
-          import wandb
-          wandb.login(key=os.environ['WANDB_API_KEY'])
-          wandb.init(project='distance_classification_project')
-          wandb.save('output_notebook.ipynb')
-          "
+          python -c "import wandb
+          wandb.init(project='distance_classification')
+          wandb.save('executed_notebook.ipynb')"
